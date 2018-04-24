@@ -9,7 +9,7 @@ class HomePage extends Component {
                     <Link to='/login'><button>User Login</button></Link>
                 </div>
                 <div>
-                    Home Page
+                    <h1>Home Page</h1>
                 </div>
             </div>
         )

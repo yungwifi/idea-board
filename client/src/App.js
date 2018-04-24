@@ -5,18 +5,24 @@ import HomePage from './components/HomePage'
 import LogInPage from './components/LogInPage'
 import IdeaPage from './components/IdeaPage'
 
+const Container = styled.div`
+margin-left: 35px;
+margin-top: 35px;`
+
 class App extends Component {
   render() {
     return (
-      <Router>
-        <div>
-          <Switch>
-            <Route exact path="/" component={HomePage} />
-            <Route path="/login" component={LogInPage} />
-            <Route path="/user/:userId" component={IdeaPage} />
-          </Switch>
-        </div>
-      </Router>
+      <Container >
+        <Router>
+          <div>
+            <Switch>
+              <Route exact path="/" component={HomePage} />
+              <Route path="/login" component={LogInPage} />
+              <Route path="/user/:userId" component={IdeaPage} />
+            </Switch>
+          </div>
+        </Router>
+      </Container>
     )
   }
 }
