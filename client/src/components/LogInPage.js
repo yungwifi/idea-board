@@ -1,6 +1,35 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
+import styled from 'styled-components'
+import SignUp from './SignUp'
+
+const LoginContainer = styled.div`
+display: flex;
+justify-content: space-around;`
+
+const Users = styled.div`
+display: flex;
+flex-direction: column;
+justify-content: right;`
+
+const Login = styled.div`
+display: flex;
+flex-direction: column;
+justify-content: right;`
+
+const Button = styled.button`
+height: 30px;
+width: 90px;
+background-color: lightblue;
+margin-right: 35px;
+border-radius: 10%;
+display: flex;
+flex-direction: row;
+justify-content: center;
+a{
+    text-decoration: none;
+}`
 
 class LogIn extends Component {
     state = {
@@ -28,25 +57,19 @@ class LogIn extends Component {
                 </div>)
         })
         return (
-            <div>
-                <Link to='/'><button>Home Page</button></Link>
-                <h1>Log-In</h1>
-                <h3>Please Select an Existing User</h3>
-                {userLinks}
-
-                <h1>Sign-Up</h1>
-                <form onSubmit={this.handleSignUp}>
-                    <div>
-                        <label htmlFor="userName">User Name</label>
-                        <input onChange={this.handleChange} name="userName" type="text" value={this.state.userName} />
-                    </div>
-                    <div>
-                        <label htmlFor="password">Password</label>
-                        <input onChange={this.handleChange} name="password" type="text" value={this.state.password} />
-                    </div>
-                    <button>Sign Up</button>
-                </form>
-            </div>
+            <LoginContainer >
+                <Users >
+                    <Button >
+                        <Link to='/'>Home Page</Link>
+                    </Button>
+                    <h1>Log-In</h1>
+                    <h3>Please Select an Existing User</h3>
+                    {userLinks}
+                </Users>
+                <Login >
+                    <SignUp users={this.state.users} />
+                </Login>
+            </LoginContainer>
         )
     }
 }

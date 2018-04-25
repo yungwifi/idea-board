@@ -7,7 +7,6 @@ const IdeaSchema = new Schema({
     title: {
         type: String,
         required: true,
-        unique: true,
         default: "New Title"
     },
     description: {
