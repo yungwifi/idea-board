@@ -15,6 +15,7 @@ router.post('/', (req, res) => {
     const newUser = new User(req.body.user)
     newUser.save()
         .then((user) => {
+            console.log(user)
             res.json(user)
         }).catch(console.log)
 })

@@ -23,28 +23,26 @@ a{
 
 class Ideas extends Component {
 
-    handleChange = (e) => {
-        const idea = { ...this.state.ideas }
-        idea[e.target.name] = e.target.value
-        this.setState({ idea })
-    }
-
     render() {
         const ideas = this.props.ideas.map((idea, i) => {
             return (
                 <div key={i}>
                     <IdeasItems >
-                        <input type="text" name="title" value={idea.title} onChange={this.handleChange} />
-                        <textarea name="description" value={idea.description} onChange={this.handleChange} />
+                        <input type="text" name="title" value={idea.title} onChange={(e) => { this.props.handleChange(idea, e) }}
+                            onBlur={() => this.props.updateIdea(this.props.idea)} />
+                        <textarea name="description" value={idea.description} onChange={(e) => { this.props.handleChange(idea, e) }}
+                            onBlur={() => this.props.updateIdea(idea._id)} />
                     </IdeasItems>
-                    <Button >Delete Idea</Button>
+                    <Button onClick={() => { this.props.deleteIdea(idea._id) }}>Delete Idea</Button>
                 </div>
             )
         })
+
+
         return (
             <div>
                 <h1>{this.props.user.userName}'s Idea Board</h1>
-                <Button > New Idea </Button>
+                <Button onClick={this.props.createNewIdea} >New Idea </Button>
                 {ideas}
             </div>
 

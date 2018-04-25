@@ -50,6 +50,53 @@ class IdeaPage extends Component {
                 })
             })
     }
+
+    createNewIdea = () => {
+        const userId = this.state.user._id
+        const url = `/api/users/${userId}/ideas`
+        console.log("CREATE IDEA ROUTE BEING CALLED", url)
+        axios.post(url)
+            .then((res) => {
+                console.log("RESPONSE FROM NEW IDEAD", res.data)
+                this.setState({ ideas: res.data.ideas })
+            })
+    }
+
+    handleChange = (changedIdea, event) => {
+        const ideas = [...this.state.ideas]
+        const newIdeas = ideas.map((idea) => {
+            if (idea._id === changedIdea._id) {
+                idea[event.target.name] = event.target.value
+            }
+            return idea
+        })
+        console.log("HANDLE CHANGE", event.target.value)
+        this.setState({ ideas: newIdeas })
+    }
+
+    updateIdea = (idea) => {
+        const userId = this.state.user._id
+        console.log(idea)
+        console.log("UPDATE IDEA BEING CALLED")
+        axios.patch(`/api/users/${userId}/ideas/${idea._id}`, { idea })
+            .then((res) => {
+                console.log("SETTING STATE", res.data)
+                this.setState({ ideas: res.data.ideas })
+            })
+            .catch(console.error)
+    }
+
+    deleteIdea = (ideaId) => {
+        const userId = this.state.user._id
+        const url = `/api/users/${userId}/ideas/${ideaId}`
+        console.log("DELETE IDEA ROUTE BEING CALLED", url)
+        axios.delete(url)
+            .then((res) => {
+                console.log("RESPONSE FROM IDEA DELETING", res.data)
+                this.setState({ ideas: res.data.ideas })
+            }).catch(console.error)
+    }
+
     render() {
         console.log(this.props.match)
         return (
@@ -59,7 +106,10 @@ class IdeaPage extends Component {
                         <Link to='/'>Home</Link>
                     </Button>
                     <IdeaContainer >
-                        <Ideas ideas={this.state.ideas} user={this.state.user} {...this.props} />
+                        <Ideas handleChange={this.handleChange} userId={this.state.user._id} user={this.state.user}
+                            ideas={this.state.ideas} {...this.props} createNewIdea={this.createNewIdea}
+                            updateIdea={this.updateIdea} deleteIdea={this.deleteIdea}
+                        />
                     </IdeaContainer>
                 </div>
             </div>

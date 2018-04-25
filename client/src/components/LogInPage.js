@@ -67,7 +67,7 @@ class LogIn extends Component {
                     {userLinks}
                 </Users>
                 <Login >
-                    <SignUp users={this.state.users} />
+                    <SignUp />
                 </Login>
             </LoginContainer>
         )

@@ -16,11 +16,22 @@ a{
 }`
 
 class SignUp extends Component {
+    state = {
+        user: {
+            userName: '',
+            password: ''
+        }
+    }
 
     handleSignUp = (e) => {
+        e.preventDefault()
+        console.log("About to make API Call", this.state.user)
         axios.post('/api/users', { user: this.state.user })
             .then((res) => {
-                console.log(res.body.user)
+                console.log(res.data)
+                const users = [...this.state.user]
+                users.push(res.data)
+                this.setState({ users })
             }).catch((error) => {
                 console.error(error)
             })
@@ -39,11 +50,11 @@ class SignUp extends Component {
                 <form onSubmit={this.handleSignUp}>
                     <div>
                         <label htmlFor="userName">User Name</label>
-                        <input onChange={this.handleChange} name="userName" type="text" value={this.props.userName} />
+                        <input onChange={this.handleChange} name="userName" type="text" value={this.state.user.userName} />
                     </div>
                     <div>
                         <label htmlFor="password">Password</label>
-                        <input onChange={this.handleChange} name="password" type="text" value={this.props.password} />
+                        <input onChange={this.handleChange} name="password" type="text" value={this.state.user.password} />
                     </div>
 
                     <Button >Sign Up </Button>
