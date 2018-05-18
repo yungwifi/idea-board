@@ -6,4 +6,4 @@ To run this app clone the repo down to your machine.
 
 In your command line run `npm i`
 
-then `npm start1`
+then `npm run dev`
